@@ -52,10 +52,7 @@ namespace LiquidationDashboard.Services
                 }
             }
             Console.WriteLine("Timed Service End");
-
-            var alerts = userService.GetUser
         }
-
         public Task StartAsync(CancellationToken cancellationToken)
         {
             _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(_jobTimer));
