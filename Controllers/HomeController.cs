@@ -18,16 +18,20 @@ namespace LiquidationDashboard.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IUserService _userService;
+        private readonly IApiService _apiService;
 
-        public HomeController(ILogger<HomeController> logger, IUserService userService)
+        public HomeController(ILogger<HomeController> logger, IUserService userService, IApiService apiService)
         {
             _logger = logger;
             _userService = userService;
+            _apiService = apiService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            //var aa = await _apiService.GetStorages("vALGO");
+            var aa = await _apiService.GetActiveSymbols();
+            return Json(aa);
         }
 
         public async Task<IActionResult> Login(string name, string password)

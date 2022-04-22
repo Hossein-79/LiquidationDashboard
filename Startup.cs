@@ -43,6 +43,7 @@ namespace LiquidationDashboard
                 option.LoginPath = "/index";
             });
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IApiService, ApiService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
