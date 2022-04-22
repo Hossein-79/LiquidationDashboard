@@ -1,4 +1,30 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿// DARK MODE
+function enableDarkMode() {
+    $('html').addClass('dark');
+    $('#dark-mode-btn .sun').removeClass('hidden');
+    $('#dark-mode-btn .moon').addClass('hidden');
+}
+function disableDarkMode() {
+    $('html').removeClass('dark');
+    $('#dark-mode-btn .sun').addClass('hidden');
+    $('#dark-mode-btn .moon').removeClass('hidden');
+}
 
-// Write your JavaScript code.
+$(document).ready(function() {
+    if (localStorage.getItem('darkmode') == 'true') {
+        enableDarkMode();
+    } else {
+        disableDarkMode();
+    }
+});
+$('#dark-mode-btn').click(function() {
+    console.log(localStorage.getItem('darkmode'))
+    if (localStorage.getItem('darkmode') == 'true') {
+        localStorage.setItem('darkmode', 'false');
+        disableDarkMode();
+    } else {
+        localStorage.setItem('darkmode', 'true');
+        enableDarkMode();
+    }
+});
+// END DARK MODE

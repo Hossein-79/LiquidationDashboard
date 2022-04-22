@@ -55,7 +55,6 @@ namespace LiquidationDashboard.Services
 
             var alerts = await userService.GetAlerts();
         }
-
         public Task StartAsync(CancellationToken cancellationToken)
         {
             _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(_jobTimer));

@@ -1,0 +1,23 @@
+{
+  "name": "liquidationdashboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "tailwind": "npx tailwindcss -i ./wwwroot/css/site.src.css -o ./wwwroot/css/site.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hossein-79/LiquidationDashboard.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hossein-79/LiquidationDashboard/issues"
+  },
+  "homepage": "https://github.com/Hossein-79/LiquidationDashboard#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.0.24"
+  }
+}
