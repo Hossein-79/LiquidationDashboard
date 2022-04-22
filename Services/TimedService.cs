@@ -28,7 +28,7 @@ namespace LiquidationDashboard.Services
             var apiService = scope.ServiceProvider.GetRequiredService<IApiService>();
             var storageService = scope.ServiceProvider.GetRequiredService<IStorageService>();
             var symbolService = scope.ServiceProvider.GetRequiredService<ISymbolService>();
-
+            var userService = scope.ServiceProvider.GetRequiredService<IUserService>();
 
             var symbols = await apiService.GetActiveSymbols();
             foreach (var symbol in symbols)
@@ -52,6 +52,8 @@ namespace LiquidationDashboard.Services
                 }
             }
             Console.WriteLine("Timed Service End");
+
+            var alerts = userService.GetUser
         }
 
         public Task StartAsync(CancellationToken cancellationToken)

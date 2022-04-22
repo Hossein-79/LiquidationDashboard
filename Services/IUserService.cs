@@ -9,6 +9,7 @@ namespace LiquidationDashboard.Services
         Task Add(User user);
         Task AddAlert(Alert alert);
         Task DeleteAlert(int alertId, int userId);
+        Task<IEnumerable<Alert>> GetAlerts();
         Task<User> GetUser(int useId);
         Task<User> GetUser(string name);
         Task<IEnumerable<Alert>> GetUserAlerts(int userId);
