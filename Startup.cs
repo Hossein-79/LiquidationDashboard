@@ -30,7 +30,8 @@ namespace LiquidationDashboard
             services.AddDbContext<LiquidationContext>(options =>
             {
                 var connectionString = Configuration.GetConnectionString("LiqudationContext");
-                options.UseSqlite(connectionString);
+                //options.UseSqlite(connectionString);
+                options.UseMySQL(connectionString);
             });
 
             services.AddControllersWithViews();
@@ -48,6 +49,7 @@ namespace LiquidationDashboard
             services.AddTransient<IStorageService, StorageService>();
 
             services.AddHostedService<TimedService>();
+            services.AddHostedService<TimedAlert>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

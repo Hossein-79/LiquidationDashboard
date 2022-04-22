@@ -39,8 +39,14 @@ namespace LiquidationDashboard.Services
             }
         }
 
+        public async Task UpdateAlert(Alert alert)
+        {
+            _context.Update(alert);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<Alert>> GetAlerts() =>
-            await _context.Alerts.ToListAsync();
+            await _context.Alerts.Where(u => u.IsSend == false).ToListAsync();
 
         public async Task<IEnumerable<Alert>> GetUserAlerts(int userId) =>
             await _context.Alerts.Where(u => u.UserId == userId).ToListAsync();

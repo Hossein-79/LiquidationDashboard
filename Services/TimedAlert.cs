@@ -9,51 +9,41 @@ using System.Threading.Tasks;
 
 namespace LiquidationDashboard.Services
 {
-    public class TimedService : IHostedService, IDisposable
+    public class TimedAlert : IHostedService, IDisposable
     {
         private Timer _timer;
         private readonly IServiceScopeFactory _serviceScopeFactory;
         private readonly double _jobTimer = 60;
 
-        public TimedService(IServiceScopeFactory serviceScopeFactory)
+        public TimedAlert(IServiceScopeFactory serviceScopeFactory)
         {
             _serviceScopeFactory = serviceScopeFactory;
         }
 
         private async void DoWork(object state)
         {
-            Console.WriteLine("Timed Service Started");
-
             using var scope = _serviceScopeFactory.CreateScope();
             var apiService = scope.ServiceProvider.GetRequiredService<IApiService>();
             var storageService = scope.ServiceProvider.GetRequiredService<IStorageService>();
             var symbolService = scope.ServiceProvider.GetRequiredService<ISymbolService>();
             var userService = scope.ServiceProvider.GetRequiredService<IUserService>();
 
-            var symbols = await apiService.GetActiveSymbols();
-            foreach (var symbol in symbols)
+            var alerts = await userService.GetAlerts();
+
+            foreach (var alert in alerts)
             {
-                await symbolService.Add(symbol);
+                var storage = await storageService.GetStorage(alert.Address);
 
-                Console.WriteLine($"Search for {symbol}");
-
-                var storages = await apiService.GetStorages(symbol);
-
-                Console.WriteLine($"Fined {storages.Count()} items");
-                foreach (var storageDto in storages)
+                if (storage != null)
                 {
-                    var storage = new Storage()
+                    if (storage.Health > alert.AlertLimit)
                     {
-                        Address = storageDto.Address,
-                        UserBorrow = storageDto.StorageState.User_global_borrowed_in_dollars,
-                        MaxBorrow = storageDto.StorageState.User_global_max_borrow_in_dollars,
-                    };
-                    await storageService.Add(storage);
+                        Console.WriteLine($"alert Send to {alert.Email} for {alert.Address}");
+                        alert.IsSend = true;
+                        await userService.UpdateAlert(alert);
+                    }
                 }
             }
-            Console.WriteLine("Timed Service End");
-
-            var alerts = await userService.GetAlerts();
         }
 
         public Task StartAsync(CancellationToken cancellationToken)

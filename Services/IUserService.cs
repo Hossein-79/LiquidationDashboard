@@ -13,5 +13,6 @@ namespace LiquidationDashboard.Services
         Task<User> GetUser(int useId);
         Task<User> GetUser(string name);
         Task<IEnumerable<Alert>> GetUserAlerts(int userId);
+        Task UpdateAlert(Alert alert);
     }
 }
