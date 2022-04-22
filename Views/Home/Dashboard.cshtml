@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Alert>
+
+<h1>Dashboard</h1>
+
+<table>
+    <tr>
+        <th>Address</th>
+        <th>Email</th>
+        <th>AlertLimit</th>
+        <th>Is Send</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Address</td>
+            <td>@item.Email</td>
+            <td>@item.AlertLimit</td>
+            <td>@item.IsSend</td>
+            <td><a asp-action="DeleteAlert" asp-controller="Home" asp-route-id="@item.AlertId">Delete</a></td>
+        </tr>
+    }
+</table>

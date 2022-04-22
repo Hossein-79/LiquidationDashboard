@@ -14,7 +14,9 @@ namespace LiquidationDashboard.Models
 
         public string Email { get; set; }
 
-        public int Address { get; set; }
+        public string Address { get; set; }
+
+        public bool IsSend { get; set; }
 
         [ForeignKey(nameof(User))]
         public int UserId { get; set; }

@@ -40,16 +40,6 @@ namespace LiquidationDashboard.Controllers
             return View(storages.OrderByDescending(u => u.Health));
         }
 
-        public async Task<IActionResult> UpdateSymbols()
-        {
-            var symbols = await _apiService.GetActiveSymbols();
-            foreach (var item in symbols)
-            {
-                await _symbolService.Add(item);
-            }
-            return Json(true);
-        }
-
         [Authorize]
         public async Task<IActionResult> AddAlert(string address)
         {
@@ -60,6 +50,47 @@ namespace LiquidationDashboard.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(storage);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> AddAlert(string address, decimal alertLimit, string email)
+        {
+            var storage = await _storageService.GetStorage(address);
+
+            if (storage is null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            var user = await _userService.GetUser(User.Identity.Name);
+
+            var alert = new Alert
+            {
+                UserId = user.UserId,
+                Email = email,
+                Address = storage.Address,
+                AlertLimit = alertLimit,
+                IsSend = false
+            };
+            await _userService.AddAlert(alert);
+                
+            return RedirectToAction(nameof(Dashboard));
+        }
+
+        [Authorize]
+        public async Task<IActionResult> DeleteAlert(int id)
+        {
+            var user = await _userService.GetUser(User.Identity.Name);
+            await _userService.DeleteAlert(id, user.UserId);
+            return RedirectToAction(nameof(Dashboard));
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Dashboard()
+        {
+            var user = await _userService.GetUser(User.Identity.Name);
+            var alerts = await _userService.GetUserAlerts(user.UserId);
+            return View(alerts);
         }
 
         public IActionResult Login()
