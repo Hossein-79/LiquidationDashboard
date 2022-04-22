@@ -1,8 +1,25 @@
-﻿@{
+﻿@model IEnumerable<Storage>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<table>
+    <tr>
+        <th>Address</th>
+        <th>UserBorrow</th>
+        <th>MaxBorrow</th>
+        <th>Health</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Address</td>
+            <td>@item.UserBorrow</td>
+            <td>@item.MaxBorrow</td>
+            <td>@item.Health</td>
+            <td><a asp-action="AddAlert" asp-controller="Home" asp-route-address="@item.Address">Add Alert</a></td>
+        </tr>
+    }
+</table>

@@ -15,5 +15,7 @@ namespace LiquidationDashboard.Data
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Symbol> Symbols { get; set; }
+        public DbSet<Storage> Storages { get; set; }
     }
 }

@@ -362,3 +362,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /Data/Liqudation.db
+/Data/Liqudation.db-shm
+/Data/Liqudation.db-wal

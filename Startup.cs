@@ -39,11 +39,15 @@ namespace LiquidationDashboard
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(option =>
             {
                 option.Cookie.Name = "xid";
-                option.AccessDeniedPath = "/index";
-                option.LoginPath = "/index";
+                option.AccessDeniedPath = "/login";
+                option.LoginPath = "/login";
             });
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IApiService, ApiService>();
+            services.AddTransient<ISymbolService, SymbolService>();
+            services.AddTransient<IStorageService, StorageService>();
+
+            services.AddHostedService<TimedService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

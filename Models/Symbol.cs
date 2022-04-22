@@ -5,13 +5,12 @@ using System.Threading.Tasks;
 
 namespace LiquidationDashboard.Models
 {
-    public class User
+    public class Symbol
     {
-        public int UserId { get; set; }
+        public int SymbolId { get; set; }
 
         public string Name { get; set; }
 
-        public string Password { get; set; }
-        public IEnumerable<Alert> Alerts { get; set; }
+        //public IEnumerable<Storage> Storages { get; set; }
     }
 }
