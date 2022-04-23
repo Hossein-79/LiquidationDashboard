@@ -14,7 +14,7 @@ body {
 
 @layer components {
   .input {
-    @apply w-full transition-colors bg-transparent border border-gray-300 dark:border-neutral-500 rounded-lg placeholder-shown:font-light focus:ring-1 focus:border-blue-400 focus:ring-blue-400 focus:outline-none px-4 py-3 mb-2;
+    @apply w-full transition-colors bg-transparent border border-gray-300 dark:border-neutral-500 rounded-lg placeholder-shown:font-light focus:ring-1 focus:border-rose-400 focus:ring-rose-400 focus:outline-none px-4 py-3 mb-2;
   }
   .input:disabled {
       @apply bg-neutral-200 dark:bg-neutral-600;
@@ -29,7 +29,7 @@ body {
       @apply absolute inset-y-0 right-3 flex items-center pointer-events-none text-gray-300 dark:text-neutral-500;
   }
   .input-wrapper:focus-within .input-icon {
-      @apply text-blue-500;
+      @apply text-rose-500;
   }
   .input-wrapper .input-icon .icon {
       @apply h-6 w-6;
@@ -70,10 +70,22 @@ body {
   .btn-icon:hover {
       @apply bg-neutral-200 dark:bg-neutral-600;
   }
-  .pair-btn {
-    @apply flex items-center border border-neutral-200 dark:border-neutral-600 hover:border-neutral-300 dark:hover:border-neutral-700 active:border-neutral-400 dark:active:border-neutral-800 rounded-md text-xs font-light mr-3 p-2;
+  .modal {
+    @apply fixed top-0 right-0 bottom-0 left-0 bg-black/30 dark:bg-white/30 backdrop-blur flex flex-col lg:items-center overflow-y-auto transition-all p-4;
   }
-  .pair-btn.active {
-      @apply pointer-events-none border-rose-400 bg-rose-400/10 text-rose-400;
+  .modal:not(.active) {
+      @apply overflow-hidden invisible pointer-events-none delay-75;
+  }
+  .modal.active .modal-body {
+      @apply delay-75 opacity-100;
+  }
+  .modal:not(.active) .modal-body {
+      @apply translate-y-5 opacity-0;
+  }
+  .modal .modal-body {
+      @apply rounded-lg bg-white dark:bg-neutral-700 transition-all lg:w-1/3 p-4 mt-auto lg:m-auto;
+  }
+  .modal .modal-body .modal-header {
+      @apply flex justify-between items-center text-sm mb-4;
   }
 }

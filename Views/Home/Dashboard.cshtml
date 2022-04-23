@@ -1,23 +1,46 @@
 ﻿@model IEnumerable<Alert>
 
-<h1>Dashboard</h1>
+<section>
+    <h1 class="text-lg font-medium mb-1">Alerts</h1>
+    <p class="text-sm text-neutral-600 dark:text-neutral-500 mb-5">
+        Here you can find all the alerts that have been created by you, you can delete them depending on whether they've been resolved or not. 
+    </p>
 
-<table>
-    <tr>
-        <th>Address</th>
-        <th>Email</th>
-        <th>AlertLimit</th>
-        <th>Is Send</th>
-        <th></th>
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.Address</td>
-            <td>@item.Email</td>
-            <td>@item.AlertLimit</td>
-            <td>@item.IsSend</td>
-            <td><a asp-action="DeleteAlert" asp-controller="Home" asp-route-id="@item.AlertId">Delete</a></td>
-        </tr>
-    }
-</table>
+    <div class="">
+        @foreach (var item in Model)
+        {
+            <div class="border-b border-neutral-100 dark:border-neutral-800 last:border-0 mb-5 pb-5 last:pb-0">
+                <h2 class="font-medium break-all mb-2">@(item.Address)</h2>
+                <div class="flex items-center flex-wrap">
+                    <div class="flex w-3/4 lg:w-1/3">
+                        <div class="flex flex-col w-1/2">
+                            <span class="">%@(item.AlertLimit)</span>
+                            <small class="text-xs text-light text-neutral-600 dark:text-neutral-400">Limit</small>
+                        </div>
+                        <div class="flex flex-col w-1/2">
+                            <span class="">@(item.IsSend)</span>
+                            <small class="text-xs text-light text-neutral-600 dark:text-neutral-400">Sent</small>
+                        </div>
+                    </div>
+                    <div class="w-full py-1 md:hidden"></div>
+                    <div class="flex md:flex-col items-center justify-between md:items-end w-full md:w-1/4 lg:w-1/3 md:ml-auto">
+                        <div>
+                            <span class="text-sm">@(item.Email)</span>
+                        </div>
+                        <div>
+                            @if(item.IsSend)
+                            {
+                                <a asp-action="DeleteAlert" asp-controller="Home" asp-route-id="@item.AlertId" class="flex items-center text-rose-400 hover:text-rose-500 active:text-rose-600 text-xs font-light">
+                                    <svg role="img" class="h-3 w-3 mr-1">
+                                        <use xlink:href="/img/sprite.svg#icon-x-circle"></use>
+                                    </svg>
+                                    <span>Delete</span>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>

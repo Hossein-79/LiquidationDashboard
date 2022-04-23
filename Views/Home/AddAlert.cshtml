@@ -1,17 +1,30 @@
 ﻿@model Storage
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
 @{
+    Layout = null;
 }
-<span>@Model.Address</span>
-<span>@Model.UserBorrow</span>
-<span>@Model.MaxBorrow</span>
-<span>@Model.Health</span>
 
-
-<form method="post">
-    <input name="alertLimit" placeholder="alertLimit" />
-    <input name="email" placeholder="email"/>
-    <button type="submit">Submit</button>
-</form>
+<section>
+    <div class="bg-neutral-50 dark:bg-neutral-800/50 dark:border-neutral-800/75 border border-neutral-100 rounded-md px-3 py-2">
+        <small class="text-xs text-neutral-600 font-light">Address:</small>
+        <h2 class="font-medium break-all mb-2">@(Model.Address)</h2>
+    </div>
+    <form method="post" id="add-alert-form" class="mt-3" data-address="@(Model.Address)">
+        <label for="limit-input" class="text-sm text-neutral-700 dark:text-neutral-400">Limit</label>
+        <input class="input" id="limit-input" name="alertLimit" inputmode="numeric" placeholder="Percentage(%)" required />
+        <div class="flex text-sm text-neutral-400 text-center my-3">
+            <span class="flex-grow text-rose-500 bg-rose-500/10 border border-rose-500/25 border-r-0 rounded-l-lg py-2">Email</span>
+            <span class="flex-grow bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-100 dark:border-neutral-800/75 border-r-0 border-l-0 py-2">SMS</span>
+            <span class="flex-grow bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-100 dark:border-neutral-800/75 border-l-0 rounded-r-lg py-2">Webhook</span>
+        </div>
+        <label for="email-input" class="text-sm text-neutral-700 dark:text-neutral-400">Email</label>
+        <input class="input" id="email-input" name="email" type="email" required/>
+        <button class="submit-btn btn mt-3" type="submit">
+            <div class="loader">
+                <svg role="img" class="animate-spin w-6 h-6">
+                    <use xlink:href="/img/sprite.svg#icon-loader"></use>
+                </svg>
+            </div>
+            <span class="text">Create</span>
+        </button>
+    </form>
+</section>

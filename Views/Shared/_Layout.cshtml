@@ -6,113 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - LiquidationDashboard</title>
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 </head>
 
-<body class="text-neutral-900 dark:bg-neutral-900 dark:text-white">
-    <div class="container mx-auto">
-        <header class="flex items-center px-5 py-5">
-            <a href="/" class="flex items-center text-xl mr-auto">
+<body class="text-neutral-900 dark:bg-neutral-900 dark:text-white min-h-screen">
+    <div class="container flex flex-col min-h-screen mx-auto">
+        <header class="flex items-center m-5">
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="flex items-center text-xl mr-auto">
                 <svg role="img" class="h-7 w-7 text-rose-400 mr-1">
                     <use xlink:href="/img/sprite.svg#logo"></use>
                 </svg>
                 <span>knowhen</span>
             </a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a asp-area="" asp-controller="Home" asp-action="Dashboard" class="text-neutral-700 dark:text-neutral-400 text-sm mr-3">Dashboard</a>
+                <a asp-area="" asp-controller="Home" asp-action="Logout" class="text-neutral-700 dark:text-neutral-400 text-sm mr-3">Logout</a>
+            }
             <button class="p-1" id="dark-mode-btn">
-                <svg role="img" class="h-7 w-7 text-neutral-600">
+                <svg role="img" class="h-5 w-5 text-neutral-600">
                     <use xlink:href="/img/sprite.svg#icon-moon" class="moon"></use>
                     <use xlink:href="/img/sprite.svg#icon-sun" class="sun hidden"></use>
                 </svg>
             </button>
         </header>
 
-        <section class="relative overflow-hidden rounded-lg mx-5 mb-8">
-            <svg class="absolute top-0 right-0 bottom-0 left-0 opacity-25 w-full h-full" width="350" height="200"
-                preserveAspectRatio="xMinYMin slice" viewBox="0 0 350 200" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M-24.9847 -245C-25.5553 -223.998 -25.84 -156.72 -28.4083 -118.989C-30.9766 -81.2569 -39.184 -56.94 -40.3947 -18.61C-41.6054 19.72 -38.3693 69.4937 -35.6723 110.992C-32.9753 152.489 -22.7607 193.036 -24.2128 230.377C-25.6649 267.718 -44.2561 299.269 -44.3848 335.039C-44.5134 370.81 -28.2181 426.673 -24.9847 445H377.515V-245H-24.9847Z"
-                    fill="url(#paint0_linear_18_281)" />
-                <path
-                    d="M115.64 -245C112.855 -216.497 99.8809 -132.662 98.9262 -73.984C97.9715 -15.306 104.641 49.6323 109.912 107.068C115.182 164.503 129.595 214.306 130.549 270.628C131.504 326.95 118.125 415.938 115.64 445H417.515V-245H115.64Z"
-                    fill="url(#paint1_linear_18_281)" />
-                <path
-                    d="M246.265 -245C244.638 -231.184 234.522 -194.916 236.502 -162.101C238.481 -129.286 256.544 -82.1343 258.142 -48.1122C259.74 -14.0901 245.474 11.0005 246.088 42.0315C246.701 73.0624 263.82 105.566 261.823 138.074C259.827 170.581 236.486 204.167 234.108 237.079C231.73 269.99 245.529 300.887 247.555 335.541C249.581 370.194 246.48 426.757 246.265 445H447.515V-245H246.265Z"
-                    fill="url(#paint2_linear_18_281)" />
-                <defs>
-                    <linearGradient id="paint0_linear_18_281" x1="-2.19546" y1="-245" x2="-113.201" y2="433.746"
-                        gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#F38194" />
-                    </linearGradient>
-                    <linearGradient id="paint1_linear_18_281" x1="130.702" y1="-245" x2="-13.4318" y2="420.692"
-                        gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#F7ABAB" />
-                        <stop offset="0.25" stop-color="#F7ABB8" />
-                    </linearGradient>
-                    <linearGradient id="paint2_linear_18_281" x1="255.202" y1="-245" x2="51.4147" y2="386.095"
-                        gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#FBD5D5" />
-                        <stop offset="0.5" stop-color="#FBD5DB" />
-                    </linearGradient>
-                </defs>
-            </svg>
-            <div class="flex flex-col justify-center items-start px-10 py-7 lg:py-14">
-                <h1 class="font-bold text-xl">Liquidation alert system</h1>
-                <span class="text-neutral-600 dark:text-neutral-300 mt-3 mb-5 lg:mb-14">
-                    Get notified when you’re about to lose your money.
-                </span>
-                <button class="btn w-auto">
-                    Login or Register
-                </button>
-            </div>
-        </section>
-
-        <section>
+        <section class="flex-grow mx-5">
             @RenderBody()
         </section>
 
-        <footer class="flex items-center justify-center text-xs py-5">
+        <footer class="flex items-center justify-center text-xs py-5 mx-5 mt-auto">
             <svg role="img" class="h-4 w-4 shrink-0 text-rose-500 mr-2">
-                <use xlink:href="/images/sprite.svg#icon-code"></use>
+                <use xlink:href="/img/sprite.svg#icon-code"></use>
             </svg>
             <span class="text-neutral-400 mr-1">Designed & developed by </span>
-            <a href="https://github.com/almoloo" class="text-rose-500">almoloo</a>
-            <span class="text-neutral-400 mr-1"> & </span>
-            <a href="https://github.com/Hossein-79" class="text-rose-500">Hossein</a>
+            <a href="https://github.com/almoloo" class="text-rose-500" target="_blank">almoloo</a>
+            <span class="text-neutral-400 mx-1"> & </span>
+            <a href="https://github.com/Hossein-79" class="text-rose-500" target="_blank">Hossein</a>
         </footer>
     </div>
-    @* <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container">
-        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">LiquidationDashboard</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-        <ul class="navbar-nav flex-grow-1">
-        <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </li>
-        </ul>
-        </div>
-        </div>
-        </nav>
-        </header> *@
-    @* <div class="container">
-        <main role="main" class="pb-3">
-        @RenderBody()
-        </main>
-        </div> *@
-
-    @* <footer class="border-top footer text-muted">
-        <div class="container">
-        &copy; 2022 - LiquidationDashboard - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-        </footer> *@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)

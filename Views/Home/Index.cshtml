@@ -4,7 +4,169 @@
     ViewData["Title"] = "Home Page";
 }
 
-<table>
+
+    <section class="relative overflow-hidden rounded-lg mb-8">
+        <svg class="absolute top-0 right-0 bottom-0 left-0 opacity-25 w-full h-full" width="350" height="200"
+            preserveAspectRatio="xMinYMin slice" viewBox="0 0 350 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M-24.9847 -245C-25.5553 -223.998 -25.84 -156.72 -28.4083 -118.989C-30.9766 -81.2569 -39.184 -56.94 -40.3947 -18.61C-41.6054 19.72 -38.3693 69.4937 -35.6723 110.992C-32.9753 152.489 -22.7607 193.036 -24.2128 230.377C-25.6649 267.718 -44.2561 299.269 -44.3848 335.039C-44.5134 370.81 -28.2181 426.673 -24.9847 445H377.515V-245H-24.9847Z"
+                fill="url(#paint0_linear_18_281)" />
+            <path
+                d="M115.64 -245C112.855 -216.497 99.8809 -132.662 98.9262 -73.984C97.9715 -15.306 104.641 49.6323 109.912 107.068C115.182 164.503 129.595 214.306 130.549 270.628C131.504 326.95 118.125 415.938 115.64 445H417.515V-245H115.64Z"
+                fill="url(#paint1_linear_18_281)" />
+            <path
+                d="M246.265 -245C244.638 -231.184 234.522 -194.916 236.502 -162.101C238.481 -129.286 256.544 -82.1343 258.142 -48.1122C259.74 -14.0901 245.474 11.0005 246.088 42.0315C246.701 73.0624 263.82 105.566 261.823 138.074C259.827 170.581 236.486 204.167 234.108 237.079C231.73 269.99 245.529 300.887 247.555 335.541C249.581 370.194 246.48 426.757 246.265 445H447.515V-245H246.265Z"
+                fill="url(#paint2_linear_18_281)" />
+            <defs>
+                <linearGradient id="paint0_linear_18_281" x1="-2.19546" y1="-245" x2="-113.201" y2="433.746"
+                    gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#F38194" />
+                </linearGradient>
+                <linearGradient id="paint1_linear_18_281" x1="130.702" y1="-245" x2="-13.4318" y2="420.692"
+                    gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#F7ABAB" />
+                    <stop offset="0.25" stop-color="#F7ABB8" />
+                </linearGradient>
+                <linearGradient id="paint2_linear_18_281" x1="255.202" y1="-245" x2="51.4147" y2="386.095"
+                    gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#FBD5D5" />
+                    <stop offset="0.5" stop-color="#FBD5DB" />
+                </linearGradient>
+            </defs>
+        </svg>
+        <div class="flex flex-col justify-center items-start px-10 py-7 lg:py-14">
+            <h1 class="font-bold text-xl">Liquidation alert system</h1>
+            <span class="text-neutral-600 dark:text-neutral-300 mt-3 mb-5 lg:mb-14">
+                Get notified when you’re about to lose your money.
+            </span>
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <a asp-area="" asp-controller="Home" asp-action="Login" class="btn w-auto">
+                    Login or Register
+                </a>
+            }
+            else
+            {
+                <a asp-area="" asp-controller="Home" asp-action="Dashboard" class="btn w-auto">
+                    Go to Dashboard
+                </a>
+            }
+        </div>
+    </section>
+
+<section>
+    @foreach (var item in Model)
+    {
+        if(item.Health > 0)
+        {
+            <div class="border-b border-neutral-100 dark:border-neutral-800 last:border-0 mb-5 pb-5 last:pb-0">
+                @* TODO: Shorten Address *@
+                <h2 class="font-medium break-all mb-2">@(item.Address)</h2>
+                <div class="flex items-center">
+                    <div class="flex w-3/4 lg:w-1/3">
+                        <div class="flex flex-col w-1/2">
+                            <span class="">$@(item.UserBorrow)</span>
+                            <small class="text-xs text-light text-neutral-600 dark:text-neutral-400">Borrowed</small>
+                        </div>
+                        <div class="flex flex-col w-1/2">
+                            <span class="">$@(item.MaxBorrow)</span>
+                            <small class="text-xs text-light text-neutral-600 dark:text-neutral-400">Max Borrow</small>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-end w-1/4 lg:w-1/3 ml-auto">
+                        <div>
+                            <span>@((item.Health / 100).ToString("N2"))</span>
+                            <small class="text-xs text-light text-neutral-600 dark:text-neutral-400">Health</small>
+                        </div>
+                        <div>
+                            @if(User.Identity.IsAuthenticated)
+                            {
+                                <button data-modal="add-alert-modal" class="flex items-center text-rose-400 hover:text-rose-500 active:text-rose-600 text-xs font-light" data-address="@(item.Address)">
+                                    <svg role="img" class="h-3 w-3 mr-1">
+                                        <use xlink:href="/img/sprite.svg#icon-plus-circle"></use>
+                                    </svg>
+                                    <span>Add Alert</span>
+                                </button>
+                            }
+                            else
+                            {
+                                <a class="flex items-center text-rose-400 hover:text-rose-500 active:text-rose-600 text-xs font-light" asp-action="AddAlert" asp-controller="Home" asp-route-address="@item.Address">
+                                    <svg role="img" class="h-3 w-3 mr-1">
+                                        <use xlink:href="/img/sprite.svg#icon-plus-circle"></use>
+                                    </svg>
+                                    <span>Add Alert</span>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</section>
+
+@* MODAL *@
+<div class="modal" id="add-alert-modal">
+    <div class="modal-body">
+        <div class="modal-header">
+            <h2 class="font-medium text-base">Create Alert</h2>
+            <button type="button" class="btn-icon modal-close">
+                <svg role="img" class="h-4 w-4">
+                    <use xlink:href="/img/sprite.svg#icon-x"></use>
+                </svg>
+            </button>
+        </div>
+        <div class="content-wrapper">
+            <div class="loader-container flex justify-center pb-4">
+                <svg role="img" class="h-4 w-4 animate-spin text-rose-500">
+                    <use xlink:href="/img/sprite.svg#icon-loader"></use>
+                </svg>
+            </div>
+            <div class="content"></div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).on('click', '[data-modal="add-alert-modal"]', function() {
+            var btn = $(this);
+            var address = btn.attr('data-address');
+            $('#add-alert-modal .content').html('');
+            $('#add-alert-modal .loader-container').show();
+            $('#add-alert-modal').attr('data-address', address);
+            $.get('/AddAlert?address=' + address)
+                .done(function(response) {
+                    if($('#add-alert-modal').attr('data-address') == address) {
+                        $('#add-alert-modal .content').html(response);
+                        $('#add-alert-modal .loader-container').hide();
+                    }
+                })
+                .fail(function(response) {
+                    console.error(response);
+                });
+        });
+
+        $(document).on('submit', '#add-alert-form', function(e) {
+            e.preventDefault();
+            var form = $(this);
+            var btn = form.find('.submit-btn');
+            var address = form.attr('data-address');
+            var data = form.serialize();
+            btn.addClass('loading').attr('disabled', 'disabled');
+            $.post('/AddAlert?address=' + address, data)
+                .done(function(response) {
+                    window.location.href = '/dashboard';
+                })
+                .fail(function(response) {
+                    console.error(response);
+                    btn.removeClass('loading').removeAttr('disabled');
+                });
+        });
+    </script>
+}
+
+@* <table>
     <tr>
         <th>Address</th>
         <th>UserBorrow</th>
@@ -22,4 +184,4 @@
             <td><a asp-action="AddAlert" asp-controller="Home" asp-route-address="@item.Address">Add Alert</a></td>
         </tr>
     }
-</table>
+</table> *@
