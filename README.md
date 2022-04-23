@@ -5,15 +5,15 @@
 > This project was developed for a [contest on gitcoin](https://gitcoin.co/issue/algofiorg/algofi-gitcoin/1/100028540) sponsored by [Algofi](https://algofi.org).
 ---
 ### Mobile screenshots
-<div style="display:flex">
-  <img src="/readme/01.png" width="33%" />
-  <img src="/readme/02.png"  width="33%" />
-  <img src="/readme/03.png" width="33%" />
+<div style="display:flex;">
+  <img src="/readme/01.png" width="30%" />
+  <img src="/readme/02.png"  width="30%" />
+  <img src="/readme/03.png" width="30%" />
 </div>
 <div style="display:flex">
-  <img src="/readme/04.png" width="33%" />
-  <img src="/readme/05.png"  width="33%" />
-  <img src="/readme/06.png" width="33%" />
+  <img src="/readme/04.png" width="30%" />
+  <img src="/readme/05.png"  width="30%" />
+  <img src="/readme/06.png" width="30%" />
 </div>
 
 ---
