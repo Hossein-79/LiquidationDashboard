@@ -39,6 +39,6 @@ Distributed under the MIT License. See [LICENSE](/LICENSE) for more information.
 ### Contact
 Should you have any questions, feel free to reach us at:
 
-✉️ [H.arabi79@yahoo.com](mailto:H.arabi79@yahoo.com)
+✉️ [ho.arabi79@gmail.com](mailto:ho.arabi79@gmail.com)
 
 ✉️ [amousavig@icloud.com](mailto:amousavig@icloud.com)
