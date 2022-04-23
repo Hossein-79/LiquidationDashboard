@@ -4,6 +4,8 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -22,6 +24,15 @@ namespace LiquidationDashboard.Services
 
         private async void DoWork(object state)
         {
+            //var aa = new Alert
+            //{
+            //    Address = "asdfafasdfasdfasdfsasda",
+            //    AlertLimit = 30,
+            //    Email = "ho.arabi79@gmail.com",
+            //    IsSend = false,
+            //    UserId = 1
+            //};
+            //SendEmail(aa);
             using var scope = _serviceScopeFactory.CreateScope();
             var apiService = scope.ServiceProvider.GetRequiredService<IApiService>();
             var storageService = scope.ServiceProvider.GetRequiredService<IStorageService>();
@@ -39,12 +50,36 @@ namespace LiquidationDashboard.Services
                     if (storage.Health > alert.AlertLimit)
                     {
                         Console.WriteLine($"alert Send to {alert.Email} for {alert.Address}");
+                        SendEmail(alert);
                         alert.IsSend = true;
                         await userService.UpdateAlert(alert);
                     }
                 }
             }
         }
+
+        private static void SendEmail(Alert alert)
+        {
+            try
+            {
+                using var mail = new MailMessage();
+                mail.From = new MailAddress("noreplay@zzk1qucl.mailosaur.net", "Liquidation alert");
+                mail.To.Add(alert.Email);
+                mail.Subject = "test";
+                mail.IsBodyHtml = true;
+
+                using var smtp = new SmtpClient("mailosaur.net", 587);
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new NetworkCredential("noreplay@zzk1qucl.mailosaur.net", "pass");
+                smtp.EnableSsl = false;
+                smtp.Send(mail);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
