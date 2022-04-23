@@ -1,6 +1,8 @@
 # Knowhen
 ##### Get notified when you're about to lose your money.
 
+View online demo at [https://bellman.top](https://bellman.top)
+
 ![knowhen](/readme/hero.png)
 > This project was developed for a [contest on gitcoin](https://gitcoin.co/issue/algofiorg/algofi-gitcoin/1/100028540) sponsored by [Algofi](https://algofi.org).
 ---
