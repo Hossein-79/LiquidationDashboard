@@ -20,7 +20,7 @@ View online demo at [https://bellman.top](https://bellman.top)
 
 ---
 ### Services used in the project
-* [Algofi JS SDK](https://github.com/Algofiorg/algofi-js-sdk)
+* [Algofi JS SDK](https://github.com/Algofiorg/algofi-js-sdk) through an [API](https://github.com/almoloo/algofi-api)
 
 ### Installation
 1. Download and install dotnet core SDK from [https://dotnet.microsoft.com/en-us/download](https://dotnet.microsoft.com/en-us/download)
