@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using LiquidationDashboard.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace LiquidationDashboard.Services
@@ -7,5 +8,6 @@ namespace LiquidationDashboard.Services
     {
         Task<IEnumerable<string>> GetActiveSymbols();
         Task<IEnumerable<GetStoragesDto>> GetStorages(string symbol);
+        Task<Storage> SearchAddress(string address);
     }
 }

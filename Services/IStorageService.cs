@@ -9,5 +9,6 @@ namespace LiquidationDashboard.Services
         Task Add(Storage storage);
         Task<Storage> GetStorage(string address);
         Task<IEnumerable<Storage>> GetStorages();
+        Task<Storage> Search(string address);
     }
 }

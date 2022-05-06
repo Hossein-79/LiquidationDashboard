@@ -36,6 +36,9 @@ namespace LiquidationDashboard.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task<Storage> Search(string address) =>
+            await _context.Storages.Where(u => u.Address == address).FirstOrDefaultAsync();
+
         public async Task<IEnumerable<Storage>> GetStorages() =>
             await _context.Storages.ToListAsync();
 

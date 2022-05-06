@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LiquidationDashboard.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -50,6 +51,36 @@ namespace LiquidationDashboard.Services
                 {
                     var deserialize = JsonSerializer.Deserialize<IEnumerable<string>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
                     return deserialize;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return null;
+        }
+
+        public async Task<Storage> SearchAddress(string address)
+        {
+            try
+            {
+                var appid = 465818260;
+                var response = await _client.GetAsync($"getstoragestate?appid={appid}&address={address}");
+                var content = await response.Content.ReadAsStringAsync();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var deserialize = JsonSerializer.Deserialize<GetStoragesDto.Storagestate>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                    if (deserialize is not null)
+                    {
+                        var storage = new Storage
+                        {
+                            Address = address,
+                            MaxBorrow = deserialize.User_global_borrowed_in_dollars,
+                            UserBorrow = deserialize.User_global_max_borrow_in_dollars
+                        };
+                        return storage;
+                    }
                 }
             }
             catch (Exception)

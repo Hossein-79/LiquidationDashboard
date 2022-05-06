@@ -93,6 +93,17 @@ namespace LiquidationDashboard.Controllers
             return View(alerts);
         }
 
+        public async Task<IActionResult> Search(string id)
+        {
+            var searched = await _apiService.SearchAddress(id);
+            if (searched is not null)
+            {
+                await _storageService.Add(searched);
+            }
+            var addresses = await _storageService.Search(id);
+            return View(addresses);
+        }
+
         public IActionResult Login()
         {
             if (User.Identity.IsAuthenticated)

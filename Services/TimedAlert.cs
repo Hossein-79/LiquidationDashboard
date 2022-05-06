@@ -65,12 +65,14 @@ namespace LiquidationDashboard.Services
                 using var mail = new MailMessage();
                 mail.From = new MailAddress("noreplay@zzk1qucl.mailosaur.net", "Liquidation alert");
                 mail.To.Add(alert.Email);
-                mail.Subject = "test";
+                mail.Subject = "Liquidation Alert";
+                mail.Body = $"Liquidation alert for addres {alert.Address}\n" +
+                    $"Your addres health below {alert.AlertLimit}";
                 mail.IsBodyHtml = true;
 
                 using var smtp = new SmtpClient("mailosaur.net", 587);
                 smtp.UseDefaultCredentials = false;
-                smtp.Credentials = new NetworkCredential("noreplay@zzk1qucl.mailosaur.net", "pass");
+                smtp.Credentials = new NetworkCredential("noreplay@zzk1qucl.mailosaur.net", "OFNHpZMDFCyflL9x");
                 smtp.EnableSsl = false;
                 smtp.Send(mail);
             }
