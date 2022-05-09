@@ -28,15 +28,12 @@
                             <span class="text-sm">@(item.Email)</span>
                         </div>
                         <div>
-                            @if(true)
-                            {
-                                <a asp-action="DeleteAlert" asp-controller="Home" asp-route-id="@item.AlertId" class="flex items-center text-rose-400 hover:text-rose-500 active:text-rose-600 text-xs font-light">
-                                    <svg role="img" class="h-3 w-3 mr-1">
-                                        <use xlink:href="/img/sprite.svg#icon-x-circle"></use>
-                                    </svg>
-                                    <span>Delete</span>
-                                </a>
-                            }
+                            <a asp-action="DeleteAlert" asp-controller="Home" asp-route-id="@item.AlertId" class="flex items-center text-rose-400 hover:text-rose-500 active:text-rose-600 text-xs font-light">
+                                <svg role="img" class="h-3 w-3 mr-1">
+                                    <use xlink:href="/img/sprite.svg#icon-x-circle"></use>
+                                </svg>
+                                <span>Delete</span>
+                            </a>
                         </div>
                     </div>
                 </div>
